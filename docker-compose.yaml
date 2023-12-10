@@ -1,0 +1,19 @@
+version: "3.9"
+services:
+  authentication-service:
+    container_name: authentication-service
+    build: ./auth-service
+    environment:
+      - JWT_SECRET="8f0c657cd2ac5bc7e2252e3ec9a2c69e77beca27"
+    ports:
+      - "5001:5001"
+
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb:/data/db
+
+volumes:
+  mongodb:
