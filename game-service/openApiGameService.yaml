@@ -1,0 +1,258 @@
+---
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: Game Service
+  description: Game service for managing game-related operations
+license:
+  name: GPL v3
+  url: https://www.gnu.org/licenses/gpl-3.0.en.html
+paths:
+  /games:
+    get:
+      summary: Get a list of games
+      description: Get a list of games
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Game"
+
+  /game/create:
+    post:
+      summary: create a new game (match).
+      description: Create a new game by passing the Ids of the players.
+      requestBody:
+        description: Player ids
+        content:
+          application/json:
+            schema:
+              required:
+                - idFirstPlayer
+              type: object
+              properties:
+                idFirstPlayer:
+                  type: number
+                  example: 20232023
+                idSecondPlayer:
+                  type: number
+                  example: 20232024
+      responses:
+        "200":
+          description: Game created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Game"
+        "400":
+          description: bad input parameter
+
+  /game/{gameId}:
+    get:
+      summary: Get informations about a game
+      description: Get a specific game by ID
+      parameters:
+        - name: gameId
+          in: query
+          description: Game ID.
+          required: true
+          explode: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Game"
+        "404":
+          description: Game not found
+
+  /game/join:
+    post:
+      summary: join a game (match).
+      description: Join a game by passing the gameId and the player ID
+      requestBody:
+        description: gameId and playerId
+        content:
+          application/json:
+            schema:
+              required:
+                - gameId
+                - playerId
+              type: object
+              properties:
+                gameId:
+                  type: string
+                  example: "202300"
+                playerId:
+                  type: number
+                  example: 29032019
+      responses:
+        "200":
+          description: Successfully joined the match
+        "400":
+          description: Bad input parameter
+
+  /game/pokemon_to_the_arena:
+    post:
+      summary: Send a Pokemon to the arena
+      description: Send a Pokemon to the arena for the current round
+      requestBody:
+        description: gameId and pokemonId
+        content:
+          application/json:
+            schema:
+              required:
+                - gameId
+                - pokemonId
+                - playerId
+              type: object
+              properties:
+                gameId:
+                  type: string
+                  example: "game10122023"
+                pokemonId:
+                  type: number
+                  example: 11254896
+                playerId:
+                  type: number
+                  example: 290319
+      responses:
+        "200":
+          description: Pokemon sent to the arena
+        "400":
+          description: bad input parameter
+
+  /game/{gameId}/{roundNumber}:
+    get:
+      summary: Get information about the current round in a match
+      description: Get information about the current round in a match by passing the gameId and roundNumber as parameters
+      parameters:
+        - name: gameId
+          in: query
+          description: ID of the game
+          required: true
+          schema:
+            type: string
+        - name: roundNumber
+          in: query
+          description: number round.
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: Information of a round
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Round"
+        "400":
+          description: bad input parameter
+
+  /game/delete/{gameId}:
+    delete:
+      summary: Delete a game (match)
+      description: Delete a match by passing the Id of the match.
+      parameters:
+        - name: gameId
+          in: query
+          description: Game ID.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Match deleted successfully
+        "400":
+          description: Bad input parameter
+
+  components:
+  schemas:
+    Game:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of the match
+          example: "20232023"
+        idFirstPlayer:
+          type: number
+          example: 20232023
+        idSecondPlayer:
+          type: number
+          example: 20232024
+        matchStatus:
+          type: string
+          enum: ["created", "in_progress", "finished", "canceled"]
+          description: Status of the match
+        currentRound:
+          type: number
+          description: The number of the current round
+          example: 2
+        startDate:
+          type: string
+          format: date-time
+          description: Date and time when the match was created
+        endDate:
+          type: string
+          format: date-time
+          description: Date and time when the match was finished
+        winner:
+          type: integer
+          description: ID of the winning player
+        rounds:
+          type: array
+          items:
+            $ref: "#/components/schemas/Round"
+    Round:
+      type: object
+      properties:
+        roundNumber:
+          type: integer
+          description: Number of the round
+        pokemonIdOfFirstPlayer:
+          type: number
+          example: 1
+        pokemonIdOfSecondPlayer:
+          type: number
+          example: 2
+        roundStatus:
+          type: string
+          enum: ["created", "in_progress", "finished"]
+          description: Status of the round
+        roundWinner:
+          type: number
+          description: The id of the round winner
+          example: 29032019
+        # creaturesInArena:
+        #   type: array
+        #   items:
+        #     type: object
+        #     properties:
+        #       creatureId:
+        #         type: integer
+        #         description: ID of the creature in the arena
+        #       playerId:
+        #         type: integer
+        #         description: ID of the player who sent the creature
+    Player:
+      type: object
+      properties:
+        playerId:
+          type: integer
+          description: ID of the player
+        playerName:
+          type: string
+          description: Name of the player
+        badgesCollected:
+          type: array
+          items:
+            type: string
+            description: badges collected by the player
