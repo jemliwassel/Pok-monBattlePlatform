@@ -1,0 +1,107 @@
+---
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: User Service
+  description: User service for managing User-related operations
+license:
+  name: GPL v3
+  url: https://www.gnu.org/licenses/gpl-3.0.en.html
+paths:
+  /users:
+    get:
+      description: "get all users"
+      responses:
+        "200":
+          description: Successful response
+    post:
+      description: "add a new user"
+      parameters:
+        - name: body
+          in: body
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                example: "user@gmail.com"
+              password:
+                type: string
+                example: "mypassword"
+              firstName:
+                type: string
+                example: "IMT"
+              lastName:
+                type: string
+                example: "ATLANTIQUE"
+              pseudo:
+                type: string
+                example: "LOGIN"
+      responses:
+        "200":
+          description: Successful response
+  /users/{id}:
+    get:
+      description: "get user with id"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Successful response
+    put:
+      description: "update a specific user with id"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Successful response
+    delete:
+      description: "delete a specific user with id"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Successful response
+  /users/{userId}/{pokemonId}:
+    post:
+      description: "buy new pokemon"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+        - name: pokemonId
+          in: body
+          schema:
+            type: object
+            properties:
+              pokemonId:
+                example: any
+      responses:
+        "200":
+          description: Successful response
+  /users/{userId}/increment-score:
+    put:
+      description: Increment the score of a user by 1
+      parameters:
+        - in: path
+          required: true
+          name: userId
+          schema:
+            type: integer
+            minimum: 0
+          description: The user ID
+      responses:
+        200:
+          description: Successful operation
+        404:
+          description: User not found
