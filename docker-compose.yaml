@@ -1,12 +1,49 @@
 version: "3.9"
 services:
+  api-gateway:
+    container_name: api-gateway
+    build: ./api-gateway
+    ports:
+      - "5000:5000"
+
   authentication-service:
     container_name: authentication-service
-    build: ./auth-service
+    build: ./authentication-service
     environment:
       - JWT_SECRET="8f0c657cd2ac5bc7e2252e3ec9a2c69e77beca27"
     ports:
       - "5001:5001"
+
+  game-service:
+    container_name: game-service
+    build: ./game-service
+    environment:
+      - DB_CONN_STRING=mongodb+srv://user1:Q4H7INMCM8GH4QzR@cluster1.hzgycwv.mongodb.net/?retryWrites=true&w=majority
+      - DB_NAME=finalProjectDB
+      - GAMES_COLLECTION_NAME=games
+      - GAME_STATE_IN_PROGRESS=in_progress
+      - GAME_STATE_WAITING=waiting
+      - GAME_STATE_FINISHED=finished
+      - GAME_STATE_CANCELED=canceled
+      - ROUND_STATE_FINISHED=finished
+      - ROUND_STATE_IN_PROGRESS=in_progress
+    depends_on:
+      - mongo
+    ports:
+      - "5002:5002"
+
+  user-service:
+    container_name: user-service
+    build: ./user-service
+    environment:
+      - DB_CONN_STRING=mongodb+srv://user1:Q4H7INMCM8GH4QzR@cluster1.hzgycwv.mongodb.net/?retryWrites=true&w=majority
+      - DB_NAME=finalProjectDB
+      - USER_COLLECTION_NAME=users
+      - POKEMON_COLLECTION_NAME=pokemons
+    depends_on:
+      - mongo
+    ports:
+      - "5003:5003"
 
   mongo:
     image: mongo
