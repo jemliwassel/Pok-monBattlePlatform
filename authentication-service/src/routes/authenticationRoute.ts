@@ -22,17 +22,6 @@ export const register = (app: express.Application) => {
     }
   });
 
-  // get all users
-  // app.get("/user-context", (req, res) => {
-  //   const decodingResult = UserController.getUserContext(
-  //     req.query.token.toString()
-  //   );
-  //   if (decodingResult.status == "success")
-  //     return res.status(200).json(decodingResult.result);
-  //   else return res.status(400).json(decodingResult);
-  // });
-  // add user
-
   app.post("/auth/users", async (req, res) => {
     try {
       const newUser = req.body;
