@@ -1,0 +1,522 @@
+{
+	"info": {
+		"_postman_id": "e32535e9-8b1b-4ad0-9a82-bcba491ae4e9",
+		"name": "PokemonBattlePlatfom",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16616463"
+	},
+	"item": [
+		{
+			"name": "Authentication service",
+			"item": [
+				{
+					"name": "Authenticate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"email\" : \"user1@gmail.com\",\r\n   \"password\" : \"2023\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://0.0.0.0:5001/auth/authenticate",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "5001",
+							"path": [
+								"auth",
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"email\" : \"user1@gmail.com\",\r\n   \"password\" : \"password2023\",\r\n   \"pseudo\" : \"user1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://0.0.0.0:5001/auth/users",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "5001",
+							"path": [
+								"auth",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "game service",
+			"item": [
+				{
+					"name": "Get all games",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstPlayerId\"  : 2060 ,\r\n    \"secondPlayerId\" : 2070\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5002/games",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5002",
+							"path": [
+								"games"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send pokemon to the arena",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"gameId\" : \"65787ea9eb08281a44ea47f4\",\r\n    \"pokemonId\" : 1,\r\n    \"playerId\" : 2010\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://0.0.0.0:5002/game/send-pokemon_to_the_arena?gameId=6578c1552c9ca3cf33e14ed7&pokemonId=3&playerId=2",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "5002",
+							"path": [
+								"game",
+								"send-pokemon_to_the_arena"
+							],
+							"query": [
+								{
+									"key": "gameId",
+									"value": "6578c1552c9ca3cf33e14ed7"
+								},
+								{
+									"key": "pokemonId",
+									"value": "3"
+								},
+								{
+									"key": "playerId",
+									"value": "2"
+								},
+								{
+									"key": "roundWinner",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Join game",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"gameId\" : \"657891b91c25e939caa84b22\",\r\n    \"playerId\" : \"1001\"\r\n}"
+						},
+						"url": {
+							"raw": "http://0.0.0.0:5002/game/join?gameId=6578c1552c9ca3cf33e14ed7&playerId=1",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "5002",
+							"path": [
+								"game",
+								"join"
+							],
+							"query": [
+								{
+									"key": "gameId",
+									"value": "6578c1552c9ca3cf33e14ed7"
+								},
+								{
+									"key": "playerId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create game",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n    \"playerId\" : 209999,\r\n    \"gameId\" : \"65787d211322952365416b5a\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://0.0.0.0:5002/game/create?idFirstPlayer=1",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "5002",
+							"path": [
+								"game",
+								"create"
+							],
+							"query": [
+								{
+									"key": "idFirstPlayer",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete game",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUser\" : 2024,\r\n    \"idGame\" : \"657862c29eb37361eabe115c\",\r\n    \"idPokemon\" : 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://0.0.0.0:5002/game/delete/?gameId=6578c1552c9ca3cf33e14ed7",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "5002",
+							"path": [
+								"game",
+								"delete",
+								""
+							],
+							"query": [
+								{
+									"key": "gameId",
+									"value": "6578c1552c9ca3cf33e14ed7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get game",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5002/game/get/?idGame=6578c1552c9ca3cf33e14ed7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5002",
+							"path": [
+								"game",
+								"get",
+								""
+							],
+							"query": [
+								{
+									"key": "idGame",
+									"value": "6578c1552c9ca3cf33e14ed7"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user service",
+			"item": [
+				{
+					"name": "Increment score",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"aaa@gmail.com\",\r\n    \"password\" : \"aaaa\",\r\n    \"firstname\" : \"bbb\",\r\n    \"lastname\" : \"ooo\",\r\n    \"pseudo\" : \"uuu\",\r\n    \"credit\" : 100\r\n}"
+						},
+						"url": {
+							"raw": "http://0.0.0.0:5003/users/65786f34b1b927d983500073/increment-score",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "5003",
+							"path": [
+								"users",
+								"65786f34b1b927d983500073",
+								"increment-score"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://0.0.0.0:5003/users",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "5003",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a player",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"user1@gmail.com\",\r\n    \"password\" : \"user1\",\r\n    \"pseudo\" : \"user1pseudo\"\r\n}"
+						},
+						"url": {
+							"raw": "http://0.0.0.0:5003/users",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "5003",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://0.0.0.0:5003/users/?id=65786f34b1b927d983500073",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "5003",
+							"path": [
+								"users",
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "65786f34b1b927d983500073"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a user",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"credit\" : 100\r\n}"
+						},
+						"url": {
+							"raw": "http://0.0.0.0:5003/users/id=6578c3351e0b2a6bcc13f686",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "5003",
+							"path": [
+								"users",
+								"id=6578c3351e0b2a6bcc13f686"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://0.0.0.0:5003/users/id=65786f34b1b927d983500073",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "5003",
+							"path": [
+								"users",
+								"id=65786f34b1b927d983500073"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buy new pokemon",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://0.0.0.0:5003/users?userId=65786f34b1b927d983500073&pokemonId=1",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "5003",
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "65786f34b1b927d983500073"
+								},
+								{
+									"key": "pokemonId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Increment score",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://0.0.0.0:5003/users?userId=6578c3351e0b2a6bcc13f686/uncrement-score",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "5003",
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "6578c3351e0b2a6bcc13f686/uncrement-score"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
